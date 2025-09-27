@@ -57,6 +57,9 @@ export function useRegisterController() {
     control,
     formState: { errors },
   } = useForm<FormData>({
+    defaultValues: {
+      arrangement: false
+    },
     resolver: zodResolver(schema),
   });
     console.log("🚀 ~ useRegisterController ~ formState:", errors);
@@ -65,9 +68,10 @@ export function useRegisterController() {
     mutationFn: async (data: SignupParams) => {
       return authService.signup(data);
     },
-    onError: (error: AxiosError<{ error: string }>) => {
+    onError: (error: AxiosError<{ message: string }>) => {
+      console.log("🚀 ~ useRegisterController ~ error:", error);
       const message =
-        error.response?.data?.error || // 👈 mensagem vinda do backend
+        error.response?.data?.message || // 👈 mensagem vinda do backend
         error.message || // erro de rede / axios
         "Não foi possível criar conta";
       toast.error(message);

@@ -7,6 +7,7 @@ import { Spinner } from "../../components/ui/Spinner";
 
 export function CompanyHome() {
   const { usersCompany, isLoading } = useCompanyHomeController();
+  console.log("🚀 ~ CompanyHome ~ usersCompany:", usersCompany);
   // Lista mockada de funcionários
 
   const navigate = useNavigate();
@@ -17,7 +18,9 @@ export function CompanyHome() {
       <div className="flex flex-1 justify-center items-center ">
         <div className="container mx-auto px-6">
           <div className="mb-8">
-            <h1 className="text-3xl font-semibold">Credifit LTDA</h1>
+            <h1 className="text-3xl font-semibold">
+              {usersCompany?.companyName || "Minha empresa"}
+            </h1>
             <span className="text-gray-600 text-sm">Bem-vindo</span>
           </div>
 

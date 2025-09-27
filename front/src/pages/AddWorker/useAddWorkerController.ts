@@ -54,7 +54,6 @@ export function useAddWorkerController() {
         error.response?.data?.message || // 👈 mensagem vinda do backend
         error.message || // erro de rede / axios
         "Não foi possível criar conta";
-      console.log("🚀 ~ useAddWorkerController ~ message:", message);
       toast.error(message);
     },
   });

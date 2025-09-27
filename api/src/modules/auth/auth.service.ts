@@ -35,8 +35,11 @@ export class AuthService {
       throw new BadRequestException('CNPJ já cadastrado');
     }
 
-
-
+    // 🔹 Valida se empresa já existe
+    const existingEmail = await this.representativesService.findByEmail(email);
+  if (existingEmail) {
+    throw new BadRequestException('Email já cadastrado');
+  }
     // 🔹 Cria empresa
     const company = await this.companyService.create({
       arrangement,

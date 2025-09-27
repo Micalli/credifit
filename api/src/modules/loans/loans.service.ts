@@ -9,9 +9,9 @@ import { LoanRepository } from 'src/shared/database/repositories/loan.repositori
 import { UsersRepository } from 'src/shared/database/repositories/users.repositories';
 import { CompanyRepository } from 'src/shared/database/repositories/company.repositories';
 import { LoanInstallmentRepository } from 'src/shared/database/repositories/installment.repositories';
-import * as dayjs from 'dayjs';
 import { handleError } from 'src/utils/erroHandler';
 import { addMonths } from 'date-fns';
+import dayjs from 'dayjs';
 
 @Injectable()
 export class LoansService {
@@ -160,7 +160,7 @@ export class LoansService {
   }
 
   private async getCreditScore(): Promise<{ score: number }> {
-    return { score: 650 }; // fixo, já que o link não funciona
+    return { score: 1000 }; // fixo, já que o link não funciona
   }
 
   private async processPayment(amount: number): Promise<{ status: string }> {

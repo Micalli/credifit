@@ -52,7 +52,6 @@ export function useLoanController() {
 
     } catch (error) {
       console.log("🚀 ~ handleSubmitLoan ~ error:", error);
-      toast.error("");
     }
   }
   return {
