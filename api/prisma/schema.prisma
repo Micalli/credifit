@@ -1,0 +1,85 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Enum para status de empréstimo
+enum LoanStatus {
+  requested
+  denied
+  approved
+  pending_payment
+  payment_failed
+}
+
+model Company {
+  id          String   @id @default(uuid())
+  cnpj        String   @unique
+  companyName String   @db.VarChar
+  arrangement Boolean
+  createdAt   DateTime @default(now())
+
+  representatives CompanyRepresentative[]
+  users           User[]
+}
+
+model CompanyRepresentative {
+  id           String   @id @default(uuid())
+  companyId    String
+  name         String   @db.VarChar
+  cpf          String   @unique
+  email        String   @unique @db.VarChar
+  passwordHash String   @db.VarChar
+  createdAt    DateTime @default(now())
+
+  company Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+}
+
+model User {
+  id           String   @id @default(uuid())
+  companyId    String?
+  name         String   @db.VarChar
+  cpf          String   @unique @db.VarChar(14)
+  email        String   @unique @db.VarChar
+  passwordHash String   @db.VarChar
+  salary       Decimal
+  createdAt    DateTime @default(now())
+
+  company Company? @relation(fields: [companyId], references: [id])
+  loans   Loan[]
+}
+
+model Loan {
+  id                String     @id @default(uuid())
+  companyName       String
+  userId            String
+  amount            Decimal
+  status            LoanStatus @default(requested)
+  installmentNumber Int
+  nextDueDate       DateTime
+  requestedAt       DateTime   @default(now())
+
+  user             User              @relation(fields: [userId], references: [id])
+  installmentsList LoanInstallment[]
+}
+
+model LoanInstallment {
+  id                String   @id @default(uuid())
+  loanId            String
+  installmentNumber Int
+  dueDate           DateTime @db.Date
+  amount            Decimal
+  paid              Boolean  @default(false)
+
+  loan Loan @relation(fields: [loanId], references: [id], onDelete: Cascade)
+}
