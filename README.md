@@ -91,7 +91,7 @@ npm install
 2. **Configurar variáveis de ambiente:**
 Crie um arquivo `.env` na pasta `front/`:
 ```env
-VITE_API_URLL="http://localhost:3000"
+VITE_API_URL="http://localhost:3000"
 ```
 
 3. **Executar a aplicação:**
