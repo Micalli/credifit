@@ -25,7 +25,7 @@ O Credifit é uma aplicação de rédito consignado, completa que demonstra as m
 - **class-validator**: Validação de dados
 
 ### Frontend
-- **React 18**: Biblioteca para interfaces de usuário
+- **React 19**: Biblioteca para interfaces de usuário
 - **TypeScript**: Tipagem estática
 - **Vite**: Build tool e dev server
 - **Tailwind CSS**: Framework CSS utilitário
